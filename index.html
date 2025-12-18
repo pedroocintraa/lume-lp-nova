@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LUME | Clareza Emocional</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+      // Shim para prevenir erros de referência ao process.env em ambientes de browser puro
+      window.process = { env: { API_KEY: "" } };
+      
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              serif: ['"Outfit"', 'sans-serif'],
+              sans: ['"Outfit"', 'sans-serif'],
+            },
+            colors: {
+              lume: {
+                50: '#fdf8f6',
+                100: '#f2e8e5',
+                200: '#eaddd7',
+                300: '#e0c3fc',
+                400: '#8e7dbe',
+                500: '#6b5b95',
+                800: '#4a3f69',
+                900: '#2d2640',
+                accent: '#feb47b',
+                highlight: '#ff7e5f',
+              },
+              border: "hsl(20, 10%, 90%)",
+              input: "hsl(20, 10%, 90%)",
+              ring: "#6b5b95",
+              background: "#fdf8f6",
+              foreground: "#2d2640",
+              primary: {
+                DEFAULT: "#6b5b95",
+                foreground: "#ffffff",
+              },
+              secondary: {
+                DEFAULT: "#f2e8e5",
+                foreground: "#4a3f69",
+              },
+              muted: {
+                DEFAULT: "#f2e8e5",
+                foreground: "#8e7dbe",
+              },
+              accent: {
+                DEFAULT: "#eaddd7",
+                foreground: "#2d2640",
+              },
+              card: {
+                DEFAULT: "#ffffff",
+                foreground: "#2d2640",
+              }
+            },
+            keyframes: {
+              "accordion-down": {
+                from: { height: "0" },
+                to: { height: "var(--radix-accordion-content-height)" },
+              },
+              "accordion-up": {
+                from: { height: "var(--radix-accordion-content-height)" },
+                to: { height: "0" },
+              },
+            },
+            animation: {
+              "accordion-down": "accordion-down 0.2s ease-out",
+              "accordion-up": "accordion-up 0.2s ease-out",
+            },
+          }
+        }
+      }
+    </script>
+    <style>
+      body {
+        background-color: #fdf8f6;
+        font-family: 'Outfit', sans-serif;
+        overflow-x: hidden;
+      }
+      .glass-card {
+        background: rgba(255, 255, 255, 0.7);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.6);
+      }
+      
+      @keyframes float {
+        0% { transform: translate(0px, 0px) scale(1) rotate(0deg); }
+        33% { transform: translate(40px, -60px) scale(1.1) rotate(5deg); }
+        66% { transform: translate(-30px, 30px) scale(0.9) rotate(-5deg); }
+        100% { transform: translate(0px, 0px) scale(1) rotate(0deg); }
+      }
+      
+      .animate-blob {
+        animation: float 15s ease-in-out infinite;
+      }
+      
+      .animation-delay-2000 { animation-delay: 2s; }
+      .animation-delay-4000 { animation-delay: 4s; }
+
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px) scale(0.98);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0) scale(1);
+        }
+      }
+      
+      @keyframes reveal {
+        from {
+          opacity: 0;
+          transform: translateY(40px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .reveal {
+        opacity: 0;
+        transform: translateY(40px);
+        transition: all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+      }
+
+      .reveal.active {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .animate-fade-in-up {
+        animation: fadeInUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+      }
+
+      /* Testimonial Swiper Specific Styles */
+      .testimonial-card {
+        position: absolute;
+        width: 100%;
+        max-width: 550px;
+        transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.6s ease;
+        user-select: none;
+        cursor: grab;
+      }
+      .testimonial-card:active {
+        cursor: grabbing;
+      }
+      .glass-effect {
+        background: rgba(255, 255, 255, 0.85);
+        backdrop-filter: blur(24px);
+        -webkit-backdrop-filter: blur(24px);
+        border: 1px solid rgba(255, 255, 255, 0.5);
+        box-shadow: 0 20px 40px -15px rgba(107, 91, 149, 0.15);
+      }
+      .pagination-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 9999px;
+        background: #eaddd7;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      }
+      .pagination-dot.active {
+        width: 28px;
+        background: #6b5b95;
+      }
+      .testimonials-stack {
+        height: 480px;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      @media (max-width: 640px) {
+        .testimonials-stack {
+          height: 520px;
+        }
+        .testimonial-card {
+          max-width: 90%;
+        }
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react@19.0.0",
+    "react/": "https://esm.sh/react@19.0.0/",
+    "react-dom": "https://esm.sh/react-dom@19.0.0",
+    "react-dom/": "https://esm.sh/react-dom@19.0.0/",
+    "react-dom/client": "https://esm.sh/react-dom@19.0.0/client",
+    "@google/genai": "https://esm.sh/@google/genai@1.34.0",
+    "lucide-react": "https://esm.sh/lucide-react@0.460.0?deps=react@19.0.0",
+    "framer-motion": "https://esm.sh/framer-motion@11.11.17?deps=react@19.0.0",
+    "@radix-ui/react-slot": "https://esm.sh/@radix-ui/react-slot@1.1.0?deps=react@19.0.0",
+    "@radix-ui/react-separator": "https://esm.sh/@radix-ui/react-separator@1.1.0?deps=react@19.0.0",
+    "@radix-ui/react-accordion": "https://esm.sh/@radix-ui/react-accordion@1.2.1?deps=react@19.0.0",
+    "class-variance-authority": "https://esm.sh/class-variance-authority@0.7.0",
+    "clsx": "https://esm.sh/clsx@2.1.1",
+    "tailwind-merge": "https://esm.sh/tailwind-merge@2.5.4"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/index.tsx"></script>
+  </body>
+</html>
